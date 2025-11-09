@@ -1,6 +1,6 @@
-// --- Persistent scores and sound with reset & mute ---
+// Persistent scores and sound with reset & mute
 
-// Load scores from localStorage or start at 0
+// Initialize from localStorage
 let computer_score = parseInt(localStorage.getItem('computer_score')) || 0;
 let user_score = parseInt(localStorage.getItem('user_score')) || 0;
 
@@ -15,22 +15,21 @@ const drawAudioElem = document.getElementById("drawSound");
 const resetBtn = document.getElementById("resetBtn");
 const muteBtn = document.getElementById("muteBtn");
 
-// track mute state
 let muted = (localStorage.getItem('rps_muted') === 'true') || false;
 updateMuteUI();
 
-// update UI scores initially
+// initial UI update
 computerScoreRef.textContent = computer_score;
 userScoreRef.textContent = user_score;
 
-// choices mapping (win/lose/draw)
+// Outcome mapping
 let choices_object = {
   rock: { rock: "draw", scissor: "win", paper: "lose" },
   scissor: { rock: "lose", scissor: "draw", paper: "win" },
   paper: { rock: "win", scissor: "lose", paper: "draw" },
 };
 
-// main checker invoked by button clicks
+// Main game function invoked from HTML buttons
 function checker(input) {
   const choices = ["rock", "paper", "scissor"];
   const num = Math.floor(Math.random() * 3);
@@ -44,29 +43,29 @@ function checker(input) {
   const outcome = choices_object[input][computer_choice];
 
   if (outcome === 'win') {
-    result_ref.style.cssText = "background-color:#cefdce;color:#689f38;";
+    result_ref.style.cssText = "background-color:#cefdce;color:#2e7d32;";
     result_ref.innerHTML = "YOU WIN!";
     user_score++;
     playSound('win');
   } else if (outcome === 'lose') {
-    result_ref.style.cssText = "background-color:#ffdde0;color:#d32f2f;";
+    result_ref.style.cssText = "background-color:#ffdde0;color:#b71c1c;";
     result_ref.innerHTML = "YOU LOSE!";
     computer_score++;
     playSound('lose');
   } else {
-    result_ref.style.cssText = "background-color:#e5e5e5;color:#808080;";
+    result_ref.style.cssText = "background-color:#e5e5e5;color:#616161;";
     result_ref.innerHTML = "DRAW!";
     playSound('draw');
   }
 
-  // update UI and localStorage
+  // update UI and persist
   computerScoreRef.textContent = computer_score;
   userScoreRef.textContent = user_score;
   localStorage.setItem('computer_score', computer_score);
   localStorage.setItem('user_score', user_score);
 }
 
-// Reset button handler
+// Reset handler
 resetBtn.addEventListener('click', () => {
   if (confirm("Reset scores?")) {
     user_score = 0;
@@ -90,10 +89,9 @@ function updateMuteUI() {
   muteBtn.textContent = muted ? "🔇" : "🔊";
 }
 
-// Play sound helper: tries <audio> tag first, otherwise fallback beep via WebAudio
+// Play sound helper: prefers audio tags, otherwise uses WebAudio beep
 function playSound(type) {
   if (muted) return;
-
   try {
     if (type === 'win' && winAudioElem && winAudioElem.play) {
       winAudioElem.currentTime = 0;
@@ -111,16 +109,15 @@ function playSound(type) {
       return;
     }
   } catch (err) {
-    // ignore and fallback to beep
+    // fallback
   }
 
-  // Fallback beep
   if (type === 'win') beep(880, 0.12);
   if (type === 'lose') beep(220, 0.14);
   if (type === 'draw') beep(440, 0.08);
 }
 
-// Simple WebAudio beep fallback (freq in Hz, duration in seconds)
+// Fallback beep using WebAudio
 function beep(freq = 440, duration = 0.1) {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -128,11 +125,11 @@ function beep(freq = 440, duration = 0.1) {
     const g = ctx.createGain();
     o.type = 'sine';
     o.frequency.value = freq;
-    g.gain.value = 0.05; // low volume
+    g.gain.value = 0.05;
     o.connect(g);
     g.connect(ctx.destination);
     o.start();
     g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + duration);
-    setTimeout(() => { o.stop(); ctx.close(); }, duration * 1000 + 20);
-  } catch (e) { /* no audio support */ }
+    setTimeout(()=>{ o.stop(); ctx.close(); }, duration*1000 + 20);
+  } catch (e) { /* no audio */ }
 }
