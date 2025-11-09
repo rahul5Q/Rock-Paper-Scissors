@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rock Paper Scissor Game</title>
 
@@ -12,20 +12,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
+    <h2 class="game-title">Rock Paper Scissors</h2>
+
     <div class="scores">
       <div class="score-items">
         <p>Computer: <span id="computer_score">0</span></p>
         <p>You: <span id="user_score">0</span></p>
       </div>
 
-      <!-- Controls: Reset and (optional) mute -->
       <div class="controls">
-        <button id="resetBtn">Reset Scores</button>
-        <button id="muteBtn">🔊</button>
+        <button id="resetBtn" title="Reset Scores">Reset</button>
+        <button id="muteBtn" title="Mute/Unmute">🔊</button>
       </div>
     </div>
 
@@ -42,7 +43,7 @@
     </div>
   </div>
 
-  <!-- Optional audio files (add these mp3s to your project root) -->
+  <!-- Optional audio files (place win.mp3, lose.mp3, draw.mp3 in project root) -->
   <audio id="winSound" src="win.mp3"></audio>
   <audio id="loseSound" src="lose.mp3"></audio>
   <audio id="drawSound" src="draw.mp3"></audio>
