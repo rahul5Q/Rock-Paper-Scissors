@@ -1,0 +1,52 @@
+/* (keep your existing CSS above) */
+/* Add / replace the below CSS at the end of style.css */
+
+.scores {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.score-items p {
+  margin: 0 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+.controls button {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.controls button#muteBtn {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.controls button:hover { opacity: 0.9; }
+
+/* result box already had styles; ensure border radius present */
+#result {
+  border-radius: 6px;
+}
+
+/* small responsive tweak */
+@media (max-width:600px){
+  .container { width: 90%; min-width: unset; padding: 30px; }
+  .weapons button { font-size: 36px; height: 80px; width: 80px; }
+}

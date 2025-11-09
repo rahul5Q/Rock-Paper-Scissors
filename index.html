@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rock Paper Scissor Game</title>
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="scores">
+      <div class="score-items">
+        <p>Computer: <span id="computer_score">0</span></p>
+        <p>You: <span id="user_score">0</span></p>
+      </div>
+
+      <!-- Controls: Reset and (optional) mute -->
+      <div class="controls">
+        <button id="resetBtn">Reset Scores</button>
+        <button id="muteBtn">🔊</button>
+      </div>
+    </div>
+
+    <div class="weapons">
+      <button onclick="checker('rock')" aria-label="Rock"><i class="far fa-hand-rock"></i></button>
+      <button onclick="checker('paper')" aria-label="Paper"><i class="far fa-hand-paper"></i></button>
+      <button onclick="checker('scissor')" aria-label="Scissor"><i class="far fa-hand-scissors"></i></button>
+    </div>
+
+    <div class="details">
+      <p id="user_choice"></p>
+      <p id="comp_choice"></p>
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <!-- Optional audio files (add these mp3s to your project root) -->
+  <audio id="winSound" src="win.mp3"></audio>
+  <audio id="loseSound" src="lose.mp3"></audio>
+  <audio id="drawSound" src="draw.mp3"></audio>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
