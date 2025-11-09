@@ -1,9 +1,10 @@
 // Persistent scores and sound with reset & mute
 
-// Initialize from localStorage
+// Load previous scores
 let computer_score = parseInt(localStorage.getItem('computer_score')) || 0;
 let user_score = parseInt(localStorage.getItem('user_score')) || 0;
 
+// References
 const computerScoreRef = document.getElementById("computer_score");
 const userScoreRef = document.getElementById("user_score");
 const result_ref = document.getElementById("result");
@@ -15,21 +16,22 @@ const drawAudioElem = document.getElementById("drawSound");
 const resetBtn = document.getElementById("resetBtn");
 const muteBtn = document.getElementById("muteBtn");
 
+// Load mute preference
 let muted = (localStorage.getItem('rps_muted') === 'true') || false;
 updateMuteUI();
 
-// initial UI update
+// Display initial scores
 computerScoreRef.textContent = computer_score;
 userScoreRef.textContent = user_score;
 
-// Outcome mapping
-let choices_object = {
+// Rules
+const choices_object = {
   rock: { rock: "draw", scissor: "win", paper: "lose" },
   scissor: { rock: "lose", scissor: "draw", paper: "win" },
   paper: { rock: "win", scissor: "lose", paper: "draw" },
 };
 
-// Main game function invoked from HTML buttons
+// Main function
 function checker(input) {
   const choices = ["rock", "paper", "scissor"];
   const num = Math.floor(Math.random() * 3);
@@ -58,14 +60,15 @@ function checker(input) {
     playSound('draw');
   }
 
-  // update UI and persist
   computerScoreRef.textContent = computer_score;
   userScoreRef.textContent = user_score;
+
+  // Save progress
   localStorage.setItem('computer_score', computer_score);
   localStorage.setItem('user_score', user_score);
 }
 
-// Reset handler
+// Reset Scores
 resetBtn.addEventListener('click', () => {
   if (confirm("Reset scores?")) {
     user_score = 0;
@@ -89,35 +92,30 @@ function updateMuteUI() {
   muteBtn.textContent = muted ? "🔇" : "🔊";
 }
 
-// Play sound helper: prefers audio tags, otherwise uses WebAudio beep
+// Play sounds
 function playSound(type) {
   if (muted) return;
-  try {
-    if (type === 'win' && winAudioElem && winAudioElem.play) {
-      winAudioElem.currentTime = 0;
-      winAudioElem.play().catch(()=>{ beep(880, 0.12); });
-      return;
-    }
-    if (type === 'lose' && loseAudioElem && loseAudioElem.play) {
-      loseAudioElem.currentTime = 0;
-      loseAudioElem.play().catch(()=>{ beep(220, 0.14); });
-      return;
-    }
-    if (type === 'draw' && drawAudioElem && drawAudioElem.play) {
-      drawAudioElem.currentTime = 0;
-      drawAudioElem.play().catch(()=>{ beep(440, 0.08); });
-      return;
-    }
-  } catch (err) {
-    // fallback
-  }
 
-  if (type === 'win') beep(880, 0.12);
-  if (type === 'lose') beep(220, 0.14);
-  if (type === 'draw') beep(440, 0.08);
+  try {
+    if (type === 'win' && winAudioElem) {
+      winAudioElem.currentTime = 0;
+      winAudioElem.play().catch(() => beep(880, 0.12));
+    } else if (type === 'lose' && loseAudioElem) {
+      loseAudioElem.currentTime = 0;
+      loseAudioElem.play().catch(() => beep(220, 0.14));
+    } else if (type === 'draw' && drawAudioElem) {
+      drawAudioElem.currentTime = 0;
+      drawAudioElem.play().catch(() => beep(440, 0.08));
+    }
+  } catch {
+    // fallback beep
+    if (type === 'win') beep(880, 0.12);
+    if (type === 'lose') beep(220, 0.14);
+    if (type === 'draw') beep(440, 0.08);
+  }
 }
 
-// Fallback beep using WebAudio
+// Fallback sound generator
 function beep(freq = 440, duration = 0.1) {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -130,6 +128,6 @@ function beep(freq = 440, duration = 0.1) {
     g.connect(ctx.destination);
     o.start();
     g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + duration);
-    setTimeout(()=>{ o.stop(); ctx.close(); }, duration*1000 + 20);
-  } catch (e) { /* no audio */ }
+    setTimeout(() => { o.stop(); ctx.close(); }, duration * 1000 + 20);
+  } catch (e) {}
 }
