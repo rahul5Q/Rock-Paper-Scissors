@@ -3,15 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Rock Paper Scissor Game</title>
+  <title>Rock Paper Scissors Game</title>
 
-  <!-- FontAwesome for icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- ✅ Font Awesome (working CDN link) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-SzlrxWriC3O8v+8z+eT9UdmwGv1KlrG1PxFfO3h1U2U3pYf6e4SR+j1J3kKzj4lqF9V7H8X6I/s5fTB4n1vZmw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 
-  <!-- Google Font -->
+  <!-- ✅ Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
+  <!-- ✅ CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,9 +37,9 @@
     </div>
 
     <div class="weapons">
-      <button onclick="checker('rock')" aria-label="Rock"><i class="far fa-hand-rock"></i></button>
-      <button onclick="checker('paper')" aria-label="Paper"><i class="far fa-hand-paper"></i></button>
-      <button onclick="checker('scissor')" aria-label="Scissor"><i class="far fa-hand-scissors"></i></button>
+      <button onclick="checker('rock')" aria-label="Rock"><i class="fa-regular fa-hand-back-fist"></i></button>
+      <button onclick="checker('paper')" aria-label="Paper"><i class="fa-regular fa-hand"></i></button>
+      <button onclick="checker('scissor')" aria-label="Scissor"><i class="fa-regular fa-hand-scissors"></i></button>
     </div>
 
     <div class="details">
@@ -43,12 +49,12 @@
     </div>
   </div>
 
-  <!-- Optional audio files (place win.mp3, lose.mp3, draw.mp3 in project root) -->
+  <!-- Optional audio files -->
   <audio id="winSound" src="win.mp3"></audio>
   <audio id="loseSound" src="lose.mp3"></audio>
   <audio id="drawSound" src="draw.mp3"></audio>
 
-  <!-- Script -->
+  <!-- ✅ Script -->
   <script src="script.js"></script>
 </body>
 </html>
