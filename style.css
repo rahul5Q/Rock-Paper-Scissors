@@ -1,4 +1,4 @@
-/* Basic reset */
+/* Basic Reset */
 *,
 *:before,
 *:after {
@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-/* Body & page background */
+/* Page Background */
 body {
   min-height: 100vh;
   margin: 0;
@@ -18,25 +18,26 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Game container */
+/* Game Box */
 .container {
   width: 92%;
   max-width: 440px;
   background-color: #ffffff;
   padding: 36px 28px;
-  border-radius: 12px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   text-align: center;
 }
 
 /* Title */
 .game-title {
-  font-size: 20px;
+  font-size: 22px;
   color: #333;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
-/* Scores row */
+/* Score Section */
 .scores {
   display: flex;
   justify-content: space-between;
@@ -44,13 +45,19 @@ body {
   margin-bottom: 22px;
 }
 
-.score-items p { margin: 0 6px; font-weight: 600; color: #333; }
+.score-items p {
+  margin: 0 6px;
+  font-weight: 600;
+  color: #333;
+  font-size: 15px;
+}
 
-/* Controls (Reset + Mute) */
+/* Buttons: Reset + Mute */
 .controls {
   display: flex;
   gap: 8px;
 }
+
 .controls button {
   background: #333;
   border: none;
@@ -59,15 +66,28 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  transition: 0.3s;
 }
-.controls button#muteBtn { width: 44px; height: 44px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
 
-/* Weapons/buttons row */
+.controls button:hover {
+  opacity: 0.8;
+}
+
+.controls button#muteBtn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Weapon Buttons */
 .weapons {
   display: flex;
   justify-content: space-around;
   margin: 18px 0;
 }
+
 .weapons button {
   background-color: #ffd51b;
   border: none;
@@ -76,34 +96,58 @@ body {
   height: 92px;
   width: 92px;
   border-radius: 50%;
-  outline: none;
   cursor: pointer;
-  transition: transform .16s ease, background .16s ease;
-  display: inline-flex;
+  transition: all 0.2s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
-.weapons button:hover { transform: translateY(-6px); background-color: #ffcf3b; }
-.weapons button:active { transform: scale(.97); }
 
-/* Details area (choices & result) */
-.details { margin-top: 18px; }
-.details p { margin: 8px 0; color: #333; font-size: 15px; }
+.weapons button:hover {
+  transform: translateY(-6px);
+  background-color: #ffcf3b;
+}
+
+.weapons button:active {
+  transform: scale(0.95);
+}
+
+/* Choices + Result */
+.details {
+  margin-top: 18px;
+}
+
+.details p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 15px;
+}
+
 #result {
   width: 200px;
   margin: 18px auto 0;
   padding: 10px 0;
   font-weight: 700;
   border-radius: 8px;
-  letter-spacing: .4px;
+  letter-spacing: 0.4px;
+  text-align: center;
 }
 
-/* Make result text centered & readable */
-#result { text-align: center; }
-
-/* Responsive tweaks */
+/* Responsive */
 @media (max-width: 520px) {
-  .container { padding: 20px; max-width: 360px; }
-  .weapons button { width: 78px; height: 78px; font-size: 36px; }
-  #result { width: 160px; font-size: 15px; }
+  .container {
+    padding: 22px;
+    max-width: 360px;
+  }
+
+  .weapons button {
+    width: 78px;
+    height: 78px;
+    font-size: 36px;
+  }
+
+  #result {
+    width: 160px;
+    font-size: 15px;
+  }
 }
